@@ -1,0 +1,325 @@
+
+---init a git repository on local
+git init
+
+---connect to a remote repository server
+git remote add origin "http:/.../"
+
+---pull from server
+git pull origin master   (git)
+git pull origin main     (github)
+git clone URL
+
+
+---config:
+git config --global user.name "username"
+git config --global user.emal "email"
+
+#set notepad++ as the default editor.
+git config --global core.editor "notepad++.exe -multiInst -nosession"
+
+#git command alias config
+
+git log --all --graph --decorate --oneline
+
+git config --global alias.hist "log --all --graph --decorate --oneline" 
+
+#use alias
+git hist
+
+git config --global --list
+git config --global -e    (open with default editor)
+
+
+
+--check status
+git status (local repository)
+
+
+--add changes
+git add filename
+git add .     (add all file under the dir)
+git add -A   (add all changes to local stage, including, rename, delete, add)
+git commit -m "message" 
+git commit -a -m "message" (add commit for all changes)
+
+
+
+---check change history
+git log (check history commit)
+
+*#each branch has it's own log
+
+
+
+
+
+---git branches
+ls 
+local default branch: master
+github default branch: main
+git branch new-branch-name ( create a branch) 
+
+*# the new branch has all the files from the master 
+*# the newly added files and commit only shows in the new branch
+
+######################################################
+arol@LAPTOP-VHM06F5M MINGW64 /c/git_project (newbranch)
+$ ls
+README.md  addingfile.txt  newbr.txt  newbr2.txt  newfolder/
+
+carol@LAPTOP-VHM06F5M MINGW64 /c/git_project (newbranch)
+$ git checkout master
+Switched to branch 'master'
+
+carol@LAPTOP-VHM06F5M MINGW64 /c/git_project (master)
+$ ls
+README.md  addingfile.txt  newfolder/
+######################################################
+
+
+
+git checkout new-branch-name (switch to a branch)
+
+
+######################################################
+carol@LAPTOP-VHM06F5M MINGW64 /c/git_project (master)
+$ git branch newbranch
+
+carol@LAPTOP-VHM06F5M MINGW64 /c/git_project (master)
+$ git checkout newbranch
+Switched to branch 'newbranch'
+
+carol@LAPTOP-VHM06F5M MINGW64 /c/git_project (newbranch)
+$
+
+########################################################
+
+
+
+---merge branches.
+1. always switch the destination branch i.e. where you want your branch merge into
+git checkout master
+git merge new-branch-name
+
+2. after merging, you can still modify the files in branch.
+all the modification won't update automatically, you must merge it 
+every time you made any modification. 
+
+3. merge vs. rebasing 
+merge only merge files in the branches. 
+Rebasing will merge files and logs.
+
+########################################################
+carol@LAPTOP-VHM06F5M MINGW64 /c/git_project (master)
+$ git merge newbranch
+Updating 80284a8..06f2610
+Fast-forward
+ newbr.txt  | 0
+ newbr2.txt | 1 +
+ 2 files changed, 1 insertion(+)
+ create mode 100644 newbr.txt
+ create mode 100644 newbr2.txt
+########################################################
+
+---git pull vs. git fetch
+
+git fetch only fetch all changes to local. but save it into different
+repository. You need to merge it into your own branch.
+instead, git pull will do fetch and merge.
+
+
+---rebasing (merge files and commit logs)
+append a branch to the master branch. 
+The rebased branch will keep clean history and maintain one branch
+Before rebasing, the branches develop in parallel structure,
+after rebasing, the branch develop in a linear workflow.
+
+
+
+git rebase newbranch
+
+
+---git push
+
+push files into git hub
+
+ssh 
+ssh-keygen
+c:/users/carol/.ssh/id_rsa.pub
+
+github->account icon->settings->SSH and GPG keys->ssh
+ copy id_rsa.pub into key
+
+ssh -T git@github.com
+
+########################################################
+arol@LAPTOP-VHM06F5M MINGW64 /c/git_project (master)
+$ ssh -T git@github.com
+The authenticity of host 'github.com (140.82.113.4)' can't be established.
+RSA key fingerprint is SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added 'github.com,140.82.113.4' (RSA) to the list of known hosts.
+Hi JuneWprog! You've successfully authenticated, but GitHub does not provide shell access.
+########################################################
+
+#*TIPS: if collaberate with coworkers you better use PULL 
+before push.
+
+git pull origin master 
+ 
+
+git push origin master
+git push origin newbranch
+
+origin: refers to the github copy of our repository, remote name 
+---revert to previous version of repository
+
+step1. git log
+to check the hash value of the stage you want to revert to  first 8 bits.
+step2. 
+git checkout <hashvalue of the commit first8> filename
+
+*# This only affect the file specified
+
+ git workflow lifecycle
+
+local:
+working directory   (\dir hold all files)
+staging area        (after git add )
+repository          (\.git folder after commit)
+
+remote:
+
+repository         (after push)
+
+repository contains files, history, config mananged by git
+
+branch: timeline. contians commits
+
+
+web-project
+initializr.com 
+download 
+
+delete directory
+rm -rf 
+
+configure notepad++ :
+add path on environment variable
+
+notepad++ 
+users/carol/.bash_profile
+alias npp='notepad++.exe -multiInst -nosession'
+set an alias
+
+$ cat ~/.gitconfig
+[user]
+        email = iss.jun.wang@gmail.com
+        name = JuneW
+
+$ cat ~/.bash_profile
+alias npp='notepad++.exe -multiInst -nosession'
+
+---create a project from remote existing repository:
+
+#clone all the branches
+git clone URL
+
+https://github.com/JuneWprog/git-demo.git
+
+*# clone a branch only: 
+git clone --single-branch --branch <branchname> URL
+
+# git tracked files in the current repository
+git ls-files
+
+
+
+---git restore  cancel the changes before add 
+
+git restore filename
+# store to discard changes in working directory
+It is used when a file is modified before <git add>  
+
+
+git restore --staged filename
+
+# ustage a file 
+it's used when a file is modified and after >git add< to the stage
+
+
+
+git mv file1 file2
+
+git rm  -f filename
+
+
+---git ignore
+
+pattern1: filename
+pattern2: *.ext
+(folder): /dir
+
+write the ignored files into
+.gitignore
+
+echo "filename">.gitignore
+echo "*.ext" >>.gitignore
+echo "/dir >>.gitignore
+--------------------------------------------------------------------------------
+
+VISUAL MERGE /DIFF TOOL   P4 MERGE
+
+
+perforce.com/downloads/helix
+
+install 
+attach to $PATH
+
+use P4merge in gitbash
+
+git config --global merge.tool p4merge
+git config --global mergetool.p4merge.path "c:/program files/perforce/prmerge.exe"
+git config --global mergetool.prompt false
+
+
+git config --global diff.tool p4merge
+git config --global difftool.p4merge.path "c:/program files/perforce/prmerge.exe"
+git config --global difftool.prompt false
+
+How to use p4merge?
+
+1. git difftool    --compaing the modified files content
+   git diff        --comparing the modified without showing content
+
+working directory  vs. staging area
+comparing the files staged vs. modified but not staged 
+
+
+
+
+2. working dir  vs. git repository
+
+git diff HEAD      --comparing the modified without showing content
+git difftool HEAD  --compaing the modified files content
+
+
+HEAD--git repository
+
+
+3. staging area vs. git repository
+
+git diff --staged HEAD
+git difftool --staged HEAD
+
+4. git diff -- filename       only compare one file
+
+
+issues:  
+git pull origin master -Already up-to-date but did not update:
+
+solution:
+ git fetch --all
+ git reset --hard origin/master
+
