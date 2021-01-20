@@ -1,7 +1,7 @@
 # git-demo
 This repository is for git and github tutorial purpose.
-##Introduction
+#Introduction
 Using command lines can be challenging. 
-##Purpose 
+#Purpose 
 This quick mannual with examples will walk you through basic git command lines and github settings.
 
