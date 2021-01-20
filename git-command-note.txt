@@ -58,6 +58,11 @@ git log (check history commit)
 ls 
 local default branch: master
 github default branch: main
+
+git branch -a (list all branches local and remote)
+
+
+
 git branch new-branch-name ( create a branch) 
 
 *# the new branch has all the files from the master 
@@ -94,6 +99,18 @@ carol@LAPTOP-VHM06F5M MINGW64 /c/git_project (newbranch)
 $
 
 ########################################################
+
+rename a branch
+
+git branch branchname-old branchname-new
+
+delete a branch
+need to switch to another branch before you can delete it.
+ 
+git branch -d branchname
+
+create and switch to a new branch
+git checkout -b branchname
 
 
 
@@ -313,7 +330,22 @@ HEAD--git repository
 git diff --staged HEAD
 git difftool --staged HEAD
 
-4. git diff -- filename       only compare one file
+4. git diff -- filename       only compare one file or folder
+
+5. git diff HEAD HEAD^        comparing between commits
+
+
+
+6. git diff hash1   hash2 
+how to get hash:   git log --oneline
+
+7. comparing local and remote master branches
+git diff master oringin/master
+
+8. comparing between 2 branches
+
+git diff branch1 branch2
+
 
 
 issues:  
